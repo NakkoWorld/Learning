@@ -1,0 +1,31 @@
+- name: Ejemplos varios de filtros
+  hosts: pizzapesto
+  vars:
+    cadena: "hola"
+    numero: 10
+    verdad: true
+    lista:
+      - patata
+      - madalena
+      - bollo
+      - pato
+    lista1: ["patata", "madalena", "bollo", "pato"]
+    diccionario:
+      patata: madalena
+      bollo: pato
+  tasks:
+  - name: Escupir numero
+    ansible.builtin.debug:
+      var: numero
+  
+  - name: Convertir a cadena
+    ansible.builtin.debug:
+      var: numero | string
+
+  - name: Convertir a int
+    ansible.builtin.debug:
+      var: cadena | int
+
+  - name: Visualizar version
+    ansible.builtin.debug:
+      msg: "{{ansible_facts['distribution_version']}}"

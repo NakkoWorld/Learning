@@ -1,0 +1,14 @@
+- name: Prueba con when
+  hosts: pizzapesto
+
+  tasks:
+  - name: Capturar fecha
+    shell:
+      cmd: date
+    register: fecha
+    when: ansible_distribution=='Debian'
+
+  - name: Visualizar fecha
+    ansible.builtin.debug:
+      msg: "{{fecha.stdout}}"
+    when: ansible_distribution=="'Debian'"

@@ -1,0 +1,12 @@
+- name: Trabajar con ficheros
+  hosts: pizzapesto
+
+  tasks:
+  - name: Crear un fichero vacio
+    file:
+      path: "/tmp/prueba.txt"
+      state: "touch"
+  - name: Borrar fichero vacio
+    file:
+      path: "/tmp/prueba.txt"
+      state: "absent"

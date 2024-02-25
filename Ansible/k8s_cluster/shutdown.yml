@@ -1,0 +1,8 @@
+- name: Apagar todos los servidores
+  hosts: pizzapesto
+  become: yes
+  vars_files:
+    - sudo_pass.yml
+  tasks:
+    - name: Apagar sistema
+      command: sudo shutdown now

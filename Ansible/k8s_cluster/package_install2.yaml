@@ -34,8 +34,19 @@
        url: https://download.docker.com/linux/ubuntu/gpg
        dest: /etc/apt/keyrings/docker-archive-keyring.gpg
 
-   - name: Add Kubernetes Repository
+   - name: Add Docker Repository
      command: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+   - name: Install Docker Engine.
+     apt: 
+       name:
+         - docker-ce
+         - docker-ce-cli
+         - containerd.io
+       state: present
+
+   - name: Update apts
+     apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
    - name: Enable service docker, and enable persistently
      service: 
@@ -49,10 +60,12 @@
 
    - name: Add Kubernetes Repository
      command: echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   
+   - name: Update apts
+     apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
    - name: Installing Kubernetes Cluster Packages.
      apt: 
-       update_cache: yes
        name:
          - kubeadm
          - kubectl
